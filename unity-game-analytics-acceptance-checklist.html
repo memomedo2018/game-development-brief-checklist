@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Unity Game Analytics Acceptance Checklist</title>
+  <meta name="description" content="A practical checklist for accepting Unity game analytics events, environments, consent, validation, dashboards, access, and handover.">
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--card:#141c32;--text:#eef3ff;--muted:#aebbd4;--accent:#75d5ff;--ok:#74e0b5;--line:#2b3858}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1020,#111a30);color:var(--text);font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(1040px,92%);margin:auto;padding:64px 0}header{max-width:840px;margin-bottom:34px}.eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.14em;font-weight:700;font-size:.78rem}h1{font-size:clamp(2.1rem,5vw,4.1rem);line-height:1.03;margin:.35em 0}h2{font-size:1.2rem;margin:.2em 0 .6em}p,li{color:var(--muted)}a{color:var(--accent)}.lead{font-size:1.18rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}.card{background:rgba(20,28,50,.94);border:1px solid var(--line);border-radius:18px;padding:24px}.card ul{padding-left:20px}.card li::marker{color:var(--ok)}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0}.button{display:inline-block;padding:12px 18px;border-radius:999px;background:var(--accent);color:#07111f;text-decoration:none;font-weight:800}.button.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}footer{border-top:1px solid var(--line);margin-top:42px;padding-top:22px;color:var(--muted)}
+  </style>
+</head>
+<body><main>
+  <header><p class="eyebrow">Game production resource</p><h1>Unity Game Analytics Acceptance Checklist</h1><p class="lead">Use this checklist to turn “analytics installed” into evidence that the game records valid, privacy-aware events in the correct environment and that the buyer can operate the system after handover.</p></header>
+  <section class="grid">
+    <article class="card"><h2>1. Product questions</h2><ul><li>Every event supports a named product decision.</li><li>Each metric has a population, time window, numerator, denominator, and exclusions.</li><li>The first event set is limited to decisions the team will actually review.</li></ul></article>
+    <article class="card"><h2>2. Event contract</h2><ul><li>Names, triggers, parameters, types, allowed values, and examples are documented.</li><li>Identity and session behavior is defined across restart, offline play, and sign-in.</li><li>Schema and implementation versions are traceable to a build.</li></ul></article>
+    <article class="card"><h2>3. Environments</h2><ul><li>Development and production data are isolated.</li><li>The active environment is visible in build configuration or diagnostics.</li><li>Cached events and environment switching have a test route.</li></ul></article>
+    <article class="card"><h2>4. Consent and privacy</h2><ul><li>Collection behavior is defined for granted, denied, revoked, and offline states.</li><li>Event parameters exclude unjustified personal or sensitive data.</li><li>Deletion and opt-out routes are tested for the selected SDK version.</li></ul></article>
+    <article class="card"><h2>5. Build validation</h2><ul><li>Each event has a named build, device, route, expected payload, and count.</li><li>Valid, invalid, duplicate, retry, and offline cases are recorded.</li><li>Evidence includes build revision, environment, identity state, and event health.</li></ul></article>
+    <article class="card"><h2>6. Dashboards</h2><ul><li>Reports answer the original questions and document filters and formulas.</li><li>Test builds and internal traffic are excluded where required.</li><li>Dashboard and data-quality owners are named.</li></ul></article>
+    <article class="card"><h2>7. Access and ownership</h2><ul><li>The buyer controls the production organization, project, billing, and final roles.</li><li>The delivery team receives least-privilege access.</li><li>Credential, role, and revocation boundaries are documented.</li></ul></article>
+    <article class="card"><h2>8. Handover</h2><ul><li>Deliver the event dictionary, code, package versions, environments, tests, and known limits.</li><li>Include dashboards or query definitions, metric glossary, and data-access notes.</li><li>Another authorized developer reproduces one route before final acceptance.</li></ul></article>
+  </section>
+  <div class="actions"><a class="button" href="https://uploadforsoftware.com/insights/unity-game-analytics/">Read the complete buyer guide</a><a class="button secondary" href="https://uploadforsoftware.com/game-development-services/">Plan the Unity implementation</a><a class="button secondary" href="index.html">Game project brief checklist</a></div>
+  <footer>Maintained by <a href="https://uploadforsoftware.com/">Upload For Software</a>. This operational checklist is not legal or privacy advice.</footer>
+</main></body></html>
