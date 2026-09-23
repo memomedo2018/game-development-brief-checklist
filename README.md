@@ -8,6 +8,7 @@ Use it before requesting estimates, then keep it beside the statement of work th
 
 - `GAME_PROJECT_BRIEF.md` — a copyable project brief and milestone-acceptance template.
 - `index.html` — a readable web version with the same decision structure.
+- `unity-ads-acceptance-matrix.html` — a client-side worksheet for reviewing a rewarded-ad placement and its failure paths.
 
 ## How to use it
 

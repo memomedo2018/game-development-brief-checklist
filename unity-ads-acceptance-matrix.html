@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Build a practical Unity rewarded-ad acceptance matrix covering consent, load, show, reward, duplicate callbacks, and recovery.">
+  <title>Unity Rewarded Ads Acceptance Matrix</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--card:#141c32;--text:#eef3ff;--muted:#b7c4dc;--accent:#75d5ff;--line:#34415f;--ok:#84e5b9}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#0b1020,#132040);color:var(--text);font:16px/1.6 system-ui,sans-serif}main{width:min(1050px,92%);margin:auto;padding:56px 0 72px}h1{font-size:clamp(2.1rem,5vw,4.2rem);line-height:1.05;margin:10px 0}h2{font-size:1.35rem}p,li,small{color:var(--muted)}a{color:var(--accent)}.eyebrow{text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-size:.8rem;font-weight:800}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:22px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.grid .card{margin:0}label{display:block;font-weight:700;margin:8px 0}input,select,button{font:inherit}input,select{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;background:#0b1326;color:var(--text)}button{border:0;border-radius:10px;background:var(--accent);color:#07111f;font-weight:800;padding:12px 18px;cursor:pointer}.controls{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.controls button+button{background:transparent;color:var(--text);border:1px solid var(--line)}table{border-collapse:collapse;width:100%}th,td{border:1px solid var(--line);text-align:left;vertical-align:top;padding:12px}th{color:var(--ok)}.scroll{overflow:auto}#message{min-height:1.6em}footer{border-top:1px solid var(--line);padding-top:20px;margin-top:42px}
+  </style>
+</head>
+<body><main>
+  <header><p class="eyebrow">Free game-production worksheet</p><h1>Unity Rewarded Ads Acceptance Matrix</h1><p>Specify the placement and reward, then generate a small, testable handover matrix. This worksheet does not connect to an ad network or transmit the entered values.</p></header>
+  <form id="setup" class="card">
+    <div class="grid">
+      <div><label for="placement">Placement name</label><input id="placement" value="Post-level revive" maxlength="80" required></div>
+      <div><label for="reward">In-game reward</label><input id="reward" value="One revive token" maxlength="80" required></div>
+      <div><label for="provider">Integration route</label><select id="provider"><option>Unity LevelPlay rewarded ad</option><option>Unity Ads direct SDK</option><option>Other rewarded-ad provider</option></select></div>
+    </div>
+    <div class="controls"><button type="submit">Generate test matrix</button><button type="button" id="print">Print / save PDF</button></div>
+  </form>
+  <section class="card" aria-live="polite"><h2>Acceptance rule</h2><p>A player receives exactly the agreed reward only after the provider confirms the rewarded view. A tap, ad load, ad open, partial view, or duplicate callback is not proof of completion. Keep the provider event, game transaction, and visible wallet state separately traceable.</p><p id="message">The matrix below uses the example values until you generate your own.</p></section>
+  <div class="scroll"><table><thead><tr><th scope="col">Case</th><th scope="col">Action and evidence</th><th scope="col">Pass condition</th></tr></thead><tbody id="cases"></tbody></table></div>
+  <section class="grid" aria-label="Handover notes">
+    <article class="card"><h2>Build proof</h2><p>Record build and source revision, SDK/mediation version, device, OS, test mode, consent state, and placement ID. Remove test credentials from any public evidence.</p></article>
+    <article class="card"><h2>Ownership</h2><p>The buyer should control the production network account. Document who can change placement IDs, consent settings, event logging, and reward rules.</p></article>
+    <article class="card"><h2>Production gate</h2><p>Confirm network policy, applicable privacy requirements, app-store declarations, and live-mode configuration before launch; the test matrix alone does not certify compliance.</p></article>
+  </section>
+  <footer><p>Created by <a href="https://uploadforsoftware.com/">Upload For Software</a>. <a href="https://uploadforsoftware.com/insights/unity-ads-integration/">Read the Unity Ads integration guide</a> or <a href="https://uploadforsoftware.com/game-development-services/">plan a Unity implementation</a>. <a href="index.html">More game-production resources</a>.</p></footer>
+</main>
+<script>
+  const rows=[
+    ['Consent denied','Start a fresh install, deny relevant consent, inspect SDK initialization and requests.','Behavior matches the documented consent design; no unjustified request is sent.'],
+    ['Ad unavailable','Tap the placement while no rewarded ad is ready; capture UI and provider logs.','No reward is issued; the game remains playable and offers a truthful retry state.'],
+    ['Ad loaded','Load the ad, then leave the screen without opening it.','No reward is issued merely because an ad loaded.'],
+    ['Opened, not completed','Open the ad and close or interrupt before the reward callback.','No reward is issued; the player returns to a stable game state.'],
+    ['Completed once','Complete one rewarded view and inspect provider event, transaction ID, and wallet.','Exactly one agreed reward is committed and visible.'],
+    ['Duplicate callback','Replay or simulate a duplicate completion event with the same transaction key.','The reward remains exactly once; duplicate is logged and ignored.'],
+    ['Offline / retry','Lose connectivity before load and again after a valid completion event.','Failures recover without phantom rewards; a valid committed reward is not lost or duplicated.'],
+    ['Scene change','Move between scenes during load, show, and callback.','Listeners and state survive or tear down cleanly; no stale UI or duplicate reward.']
+  ];
+  const tbody=document.getElementById('cases');
+  function render(){
+    const placement=document.getElementById('placement').value.trim();
+    const reward=document.getElementById('reward').value.trim();
+    const provider=document.getElementById('provider').value;
+    if(!placement||!reward){document.getElementById('message').textContent='Enter a placement and reward first.';return}
+    document.getElementById('message').textContent=`Placement: ${placement}. Reward: ${reward}. Route: ${provider}. Record actual results and evidence separately; this is a test plan, not a passed test.`;
+    tbody.replaceChildren(...rows.map(([name,action,pass])=>{const tr=document.createElement('tr');for(const value of [name,action,pass]){const td=document.createElement('td');td.textContent=value;tr.append(td)}return tr}));
+  }
+  document.getElementById('setup').addEventListener('submit',event=>{event.preventDefault();render()});
+  document.getElementById('print').addEventListener('click',()=>window.print());
+  render();
+</script>
+</body></html>
