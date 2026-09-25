@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Score a game development brief against eight practical scoping criteria. Get a local, printable gap list before requesting a development estimate.">
+  <title>Game Development Brief Scorer | Upload For Software</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--card:#141c32;--text:#eef3ff;--muted:#b9c6dd;--accent:#75d5ff;--line:#344361;--good:#9ae3bb;--warn:#ffd18a}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(155deg,#0b1020,#15233c);color:var(--text);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{width:min(1000px,92%);margin:auto;padding:50px 0 70px}h1{font-size:clamp(2.1rem,5vw,3.8rem);line-height:1.08;margin:.25em 0}h2{line-height:1.2}p{color:var(--muted)}a{color:var(--accent)}.eyebrow{color:var(--accent);font-size:.8rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.lead{font-size:1.2rem;max-width:760px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:16px 0}.question{margin:0 0 12px;font-weight:750;font-size:1.1rem}.hint{margin:0 0 16px}.choices{display:flex;flex-wrap:wrap;gap:10px}label{display:inline-flex;align-items:center;gap:7px;background:#202d49;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer}label:has(input:checked){border-color:var(--accent);background:#163c50}input{accent-color:var(--accent)}button{border:0;border-radius:999px;background:var(--accent);color:#07111f;font:inherit;font-weight:800;padding:12px 20px;cursor:pointer}.secondary{background:transparent;color:var(--text);border:1px solid var(--line)}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--warn);outline-offset:3px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}.score{font-size:clamp(2rem,6vw,4.5rem);line-height:1;margin:10px 0;color:var(--good)}.note{font-size:.92rem}.result{border-color:var(--accent)}.result li{margin:8px 0}footer{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;color:var(--muted)}@media print{body{background:#fff;color:#111}main{width:100%;padding:0}.card{background:#fff;color:#111;border-color:#ccc;break-inside:avoid}p,.hint,.note,footer{color:#333}a{color:#064d75}.actions,form{display:none}.result{display:block!important}}
+  </style>
+</head>
+<body><main>
+  <p class="eyebrow">Free planning tool · no sign-in</p>
+  <h1>Game Development Brief Scorer</h1>
+  <p class="lead">A better estimate starts with clear decisions. Rate eight parts of your game brief, then use the gap list to prepare a practical first discussion with a development team.</p>
+  <p class="note">This is a planning checklist, not a price calculator or a guarantee of delivery. Your selections stay in this browser page; the tool has no form submission, analytics, or account requirement.</p>
+  <form id="brief-form">
+    <div id="questions"></div>
+    <div class="actions"><button type="submit">Score my brief</button><button type="reset" class="secondary">Clear answers</button></div>
+  </form>
+  <section id="result" class="card result" hidden aria-live="polite"></section>
+  <section class="card">
+    <h2>How the score works</h2>
+    <p>Each of the eight criteria earns 0 for undefined, 1 for partly defined, or 2 for a written decision with an example or acceptance evidence. Maximum: 16. A low score means the next useful step is a scoping conversation—not that the game idea is weak. The gap list prioritizes unanswered decisions; it does not estimate cost or effort.</p>
+    <p>Criteria cover audience and platform, core loop, gameplay proof, content boundaries, online dependencies, monetization, quality targets, and handover. For a full written template, <a href="GAME_PROJECT_BRIEF.md">use the game project brief</a>.</p>
+  </section>
+  <footer>Built by <a href="https://uploadforsoftware.com/">Upload For Software</a>. Explore our <a href="https://uploadforsoftware.com/game-development-services/">game development services</a> or <a href="https://uploadforsoftware.com/contact/?service=game-development">discuss a project brief</a>.</footer>
+</main>
+<script>
+  const criteria = [
+    ['Audience & platform','Who will play, where, and with which inputs?','Name a primary player, target devices, orientation, controls, and minimum OS.'],
+    ['Core loop','What does the player repeatedly do and why return?','Describe a short play session: action, feedback, reward, and next decision.'],
+    ['First playable proof','What must a prototype prove before expansion?','Name one testable slice, success condition, and decision it unlocks.'],
+    ['Content boundaries','What is in the first release and explicitly out?','List levels, modes, characters, art styles, and exclusions with counts where possible.'],
+    ['Online dependencies','Is the experience offline, synchronous, or service-backed?','Specify accounts, matchmaking, leaderboards, backend, moderation, and failure behavior.'],
+    ['Monetization','Which purchase or ad flows exist, if any?','Define products or ad placements, entitlement rules, restore/refund paths, and whether none are planned.'],
+    ['Quality targets','What must the game run on and how will it be accepted?','Name test devices, performance floor, crash/error checks, accessibility, and store review scope.'],
+    ['Handover & ownership','What will the team deliver and who owns each account?','List source repository, build steps, assets/licenses, store accounts, test evidence, and known issues.']
+  ];
+  const questions = document.getElementById('questions');
+  const result = document.getElementById('result');
+  criteria.forEach(([name,prompt],i) => {
+    const group = document.createElement('fieldset');
+    group.className = 'card';
+    group.innerHTML = `<legend class="question">${i+1}. ${name}</legend><p class="hint">${prompt}</p><div class="choices">${[['0','Not defined'],['1','Partly defined'],['2','Written and testable']].map(([score,label])=>`<label><input type="radio" name="c${i}" value="${score}" required> ${label}</label>`).join('')}</div>`;
+    questions.append(group);
+  });
+  document.getElementById('brief-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const scores = criteria.map((_,i)=>Number(form.get(`c${i}`)));
+    const total = scores.reduce((sum,value)=>sum+value,0);
+    const low = scores.map((score,i)=>({score,i})).filter(item=>item.score<2).sort((a,b)=>a.score-b.score);
+    const band = total >= 13 ? 'Ready for a scoped estimate conversation' : total >= 8 ? 'Useful start; close the main gaps first' : 'Start with a focused discovery brief';
+    const intro = document.createElement('div');
+    intro.innerHTML = `<h2>Your brief readiness</h2><p class="score">${total} / 16</p><p><strong>${band}</strong></p><p>These are the next decisions to document:</p>`;
+    result.replaceChildren(intro);
+    if (low.length) {
+      const list = document.createElement('ol');
+      low.forEach(({i}) => {const li=document.createElement('li');const strong=document.createElement('strong');strong.textContent=criteria[i][0]+': ';li.append(strong,criteria[i][2]);list.append(li)});
+      result.append(list);
+    } else {
+      const p=document.createElement('p');p.textContent='All eight areas have written, testable decisions. Bring the brief and examples to the estimate discussion.';result.append(p);
+    }
+    const note=document.createElement('p');note.className='note';note.textContent='A score reflects brief completeness only. Complexity, budget, schedule, and technical risk require a separate discovery review.';result.append(note);
+    const print=document.createElement('button');print.className='secondary';print.textContent='Print my results';print.type='button';print.addEventListener('click',()=>window.print());result.append(print);
+    result.hidden=false;result.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  document.getElementById('brief-form').addEventListener('reset',()=>{result.hidden=true;result.replaceChildren()});
+</script>
+</body></html>
