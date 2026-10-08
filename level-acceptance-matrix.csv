@@ -1,0 +1,9 @@
+case_id,build_id,level_revision,start_conditions,action,expected_result,observed_result,status,evidence,decision_owner,retest_build
+LEVEL-01,,,"Alive;endpoint reached;required threat resolved",Trigger completion,One completion transition,,pending,,,
+LEVEL-02,,,"Alive;endpoint reached;required threat unresolved",Reach endpoint,Remain active and communicate remaining objective,,pending,,,
+LEVEL-03,,,"Alive;endpoint not reached;required threat resolved",Resolve threat first,Remain active until endpoint reached,,pending,,,
+LEVEL-04,,,"Defeated;endpoint reached;required threat resolved",Evaluate outcome,Failure route not victory,,pending,,,
+LEVEL-05,,,Fresh retry state,Retry after failure,Required target and objective flags restored,,pending,,,
+LEVEL-06,,,Optional route skipped,Complete main route,Optional action does not block completion,,pending,,,
+LEVEL-07,,,Already completed,Repeat completion trigger,No duplicate completion transition,,pending,,,
+LEVEL-08,,,Uncoached participant with intended camera,Approach route choice,Record whether the cue is noticed without guidance,,pending,,,

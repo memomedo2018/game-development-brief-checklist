@@ -10,6 +10,10 @@ Use it before requesting estimates, then keep it beside the statement of work th
 - `index.html` — a readable web version with the same decision structure.
 - `unity-ads-acceptance-matrix.html` — a client-side worksheet for reviewing a rewarded-ad placement and its failure paths.
 
+## Playable level acceptance
+
+[Open the level acceptance worksheet](https://memomedo2018.github.io/game-development-brief-checklist/level-acceptance-template.html) for a copyable level card, a hypothetical objective truth table, a revision log and an editable CSV matrix. All observations start blank and pending; it is not a report of passed tests.
+
 ## How to use it
 
 1. Define the player, core loop, platform, input, camera, online boundary, content scope, and first release goal.
