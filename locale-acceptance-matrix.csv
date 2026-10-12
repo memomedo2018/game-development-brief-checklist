@@ -1,0 +1,9 @@
+case_id,build,device,string_revision,initial_locale,action,expected_outcome,observed_outcome,status,evidence
+L01,,,,English,Open approved reference corpus,Approved strings and glyphs render as reviewed,,pending,
+L02,,,,Arabic,Open mixed-script price and item label,Meaning and reading order match approved example,,pending,
+L03,,,,English,Switch while persistent objective is active,Existing label updates without repeating objective action,,pending,
+L04,,,,Arabic,Switch after notice has expired,Expired notice remains absent,,pending,
+L05,,,,Arabic,Continue play after language selection,Wallet mission and input match baseline,,pending,
+L06,,,,Arabic,Change scene then return,Selected locale retained under documented rule,,pending,
+L07,,,,Arabic,Restart application with saved preference,Selected locale restored without unrelated save changes,,pending,
+L08,,,,Default,Open unsupported character or missing string,Approved fallback appears and limit is recorded,,pending,

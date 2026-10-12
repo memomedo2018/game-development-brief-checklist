@@ -14,6 +14,10 @@ Use it before requesting estimates, then keep it beside the statement of work th
 
 [Open the level acceptance worksheet](https://memomedo2018.github.io/game-development-brief-checklist/level-acceptance-template.html) for a copyable level card, a hypothetical objective truth table, a revision log and an editable CSV matrix. All observations start blank and pending; it is not a report of passed tests.
 
+## Runtime locale acceptance
+
+[Open the locale worksheet](https://memomedo2018.github.io/game-development-brief-checklist/locale-acceptance-template.html) and editable CSV. Expected outcomes are separate from blank pending observations; no executed test is claimed.
+
 ## How to use it
 
 1. Define the player, core loop, platform, input, camera, online boundary, content scope, and first release goal.
