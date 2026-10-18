@@ -1,0 +1,14 @@
+{
+  "project": "Example Unity handover — replace before review",
+  "sourceRevision": "REPLACE_WITH_COMMIT",
+  "unityVersion": "REPLACE_WITH_EXACT_EDITOR_VERSION",
+  "target": "Android development review",
+  "build": {"artifact": "", "sha256": ""},
+  "evidence": [
+    {"id": "clean-build", "expected": "A recipient can reproduce the named build using the documented editor, packages and build steps.", "observed": "", "artifact": "", "status": "pending"},
+    {"id": "asset-source", "expected": "Editable art sources and runtime exports are mapped to stable asset identifiers and declared licenses.", "observed": "", "artifact": "", "status": "pending"},
+    {"id": "save-continuity", "expected": "The agreed existing profile survives the supported installed update, or the documented recovery boundary is shown.", "observed": "", "artifact": "", "status": "pending"},
+    {"id": "service-ownership", "expected": "Required service owners and configuration locations are documented without putting credentials in this manifest.", "observed": "", "artifact": "", "status": "pending"},
+    {"id": "known-limits", "expected": "Known defects, unsupported paths and deferred work have a recipient and agreed disposition.", "observed": "", "artifact": "", "status": "pending"}
+  ]
+}
