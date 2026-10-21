@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{review}from'./entitlement-review.mjs';
+const event=(status,transaction='synthetic-1',product='unlock')=>({status,transaction,product});
+test('pending and rejected do not grant',()=>assert.deepEqual(review([event('pending'),event('rejected')]).balances,{}));
+test('verification grants once',()=>assert.equal(review([event('verified')]).balances.unlock,1));
+test('duplicate delivery does not grant twice',()=>assert.equal(review([event('verified'),event('verified')]).balances.unlock,1));
+test('pending then verification grants once',()=>assert.equal(review([event('pending'),event('verified')]).balances.unlock,1));
+test('revocation removes a prior grant once',()=>assert.equal(review([event('verified'),event('revoked'),event('revoked')]).balances.unlock,0));
+test('late verification cannot revive revoked identity in this model',()=>assert.deepEqual(review([event('revoked'),event('verified')]).balances,{}));
+test('distinct transactions remain distinct',()=>assert.equal(review([event('verified'),event('verified','synthetic-2')]).balances.unlock,2));
+test('identity is required',()=>assert.throws(()=>review([{status:'verified',product:'unlock'}]),/identity/));
+test('unknown status is rejected',()=>assert.throws(()=>review([event('success-looking-animation')]),/status/));
