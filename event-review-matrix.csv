@@ -1,0 +1,9 @@
+case_id,starting_condition,attempt,expected_event,count,actual_observation,decision
+preview,known test fixture,preview route,order_committed,0,,pending
+cancel,preview active,cancel before commit,order_committed,0,,pending
+commit,valid empty destination,commit once,order_committed,1,,pending
+repeat,accepted order resolving,repeat confirm,order_committed,1,,pending
+invalid,occupied destination,confirm invalid order,order_committed,0,,pending
+allowance,insufficient allowance,confirm paid order,order_committed,0,,pending
+restart,new fixture run,clear previous capture and replay valid order,order_committed,1,,pending
+environment,test fixture,inspect test versus production destination,separate environment evidence,1,,pending

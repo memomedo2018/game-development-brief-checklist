@@ -1,0 +1,15 @@
+import assert from'node:assert/strict';import{reviewEvents}from'./event-review-matrix.mjs';
+const row={event_id:'synthetic-e1',event_name:'order_committed',schema_version:1,environment:'test',build_id:'fixture-r1',order_id:'order-1',cost:2},expect=[{environment:'test',build_id:'fixture-r1',order_id:'order-1',event_name:'order_committed',count:1}];
+assert.equal(reviewEvents(expect,[row]).status,'matches_declared_fixture');
+assert.equal(reviewEvents(expect,[]).status,'mismatch');
+assert.equal(reviewEvents(expect,[row,row]).status,'mismatch');
+assert.equal(reviewEvents(expect,[{...row,environment:'production'}]).status,'mismatch');
+assert.equal(reviewEvents(expect,[{...row,order_id:'order-2'}]).status,'mismatch');
+assert.equal(reviewEvents(expect,[{...row,cost:'2'}]).status,'mismatch');
+assert.equal(reviewEvents(expect,[{...row,schema_version:2}]).status,'mismatch');
+assert.equal(reviewEvents(expect,[{...row,private_email:'not-collected@example.invalid'}]).status,'mismatch');
+assert.equal(reviewEvents([{...expect[0],count:0}],[row]).status,'mismatch');
+assert.throws(()=>reviewEvents([...expect,...expect],[row]));
+assert.throws(()=>reviewEvents([{...expect[0],count:-1}],[row]));
+assert.equal(reviewEvents([{...expect[0],count:0}],[]).status,'matches_declared_fixture');
+console.log('12 synthetic assertions passed. No Unity, SDK, dashboard, client or production test performed.');
