@@ -1,0 +1,18 @@
+{
+  "example_type": "synthetic; replace with your own build declarations",
+  "build_id": "synthetic-r1",
+  "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "unity_version": "example-version",
+  "target": "example-target",
+  "recipe_id": "example-review-recipe",
+  "inputs": {
+    "scene_list": ["ExampleScene"],
+    "configuration_revision": "example-config-r1",
+    "package_lock_reference": "example-lock-reference",
+    "build_options": {"development": true}
+  },
+  "artifact_sha256": null,
+  "reviewer_decision": "pending",
+  "reviewer_note": "",
+  "review_reference": ""
+}
