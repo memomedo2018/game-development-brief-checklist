@@ -1,0 +1,27 @@
+{
+  "events": [
+    {
+      "id": "pickup",
+      "occurredMs": 10,
+      "displayedMs": 35,
+      "displayDelayMs": 25
+    },
+    {
+      "id": "damage",
+      "occurredMs": 12,
+      "displayedMs": 20,
+      "displayDelayMs": 8
+    }
+  ],
+  "occurrenceOrder": [
+    "pickup",
+    "damage"
+  ],
+  "presentationOrder": [
+    "damage",
+    "pickup"
+  ],
+  "orderDiffers": true,
+  "accepted": false,
+  "limitation": "Synthetic same-clock trace only; ties are ID-ordered for stable output, not causal proof. No Unity, network or device test."
+}
