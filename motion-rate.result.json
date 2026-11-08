@@ -1,0 +1,5 @@
+{
+  "ok": true,
+  "assertions": 23,
+  "scope": "synthetic arithmetic and validation only; not Unity/physics/animation acceptance"
+}
