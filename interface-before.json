@@ -1,0 +1,1 @@
+{"messages":[{"name":"RewardGranted","fields":[{"name":"amount","type":"number","required":true},{"name":"currency","type":"string","required":true}]}]}

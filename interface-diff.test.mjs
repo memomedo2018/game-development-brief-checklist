@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{compare}from'./interface-diff.mjs';
+const base={messages:[{name:'RewardGranted',fields:[{name:'amount',type:'number',required:true},{name:'currency',type:'string',required:true}]}]};
+const clone=()=>structuredClone(base);
+test('unchanged descriptors do not accept implementation',()=>assert.deepEqual(compare(base,clone()),{status:'no_descriptor_changes',changes:[],acceptance:'not_decided'}));
+test('type drift identified without compatibility verdict',()=>{const n=clone();n.messages[0].fields[0].type='string';const r=compare(base,n);assert.equal(r.changes[0].change,'field_changed');assert.equal(r.changes[0].before.type,'number');assert.equal(r.acceptance,'not_decided');});
+test('required-to-optional is a reviewable change',()=>{const n=clone();n.messages[0].fields[0].required=false;assert.equal(compare(base,n).changes[0].after.required,false);});
+test('addition and removal retain names and declared metadata',()=>{const n=clone();n.messages[0].fields=[{name:'receiptId',type:'string',required:false}];assert.deepEqual(compare(base,n).changes.map(x=>[x.field,x.change]),[['amount','field_removed'],['currency','field_removed'],['receiptId','field_added']]);});
+test('renamed message is removal plus addition, never guessed mapping',()=>{const n=clone();n.messages[0].name='RewardIssued';assert.deepEqual(compare(base,n).changes.map(x=>x.change),['message_removed','message_added']);});
+test('input order does not affect output',()=>{const n=clone();n.messages[0].fields.reverse();assert.equal(compare(base,n).changes.length,0);});
+test('duplicate message/field rejected',()=>{const n=clone();n.messages.push(n.messages[0]);assert.throws(()=>compare(base,n),/duplicate message/);const f=clone();f.messages[0].fields.push(f.messages[0].fields[0]);assert.throws(()=>compare(base,f),/duplicate field/);});
+test('unknown types and malformed shape rejected',()=>{const n=clone();n.messages[0].fields[0].type='decimal';assert.throws(()=>compare(base,n),/Invalid/);assert.throws(()=>compare(base,{}),/messages/);assert.throws(()=>compare(null,base),/messages/);});

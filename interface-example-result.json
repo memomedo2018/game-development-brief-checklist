@@ -1,0 +1,28 @@
+{
+  "status": "review_required",
+  "changes": [
+    {
+      "message": "RewardGranted",
+      "field": "amount",
+      "change": "field_changed",
+      "before": {
+        "type": "number",
+        "required": true
+      },
+      "after": {
+        "type": "string",
+        "required": true
+      }
+    },
+    {
+      "message": "RewardGranted",
+      "field": "receiptId",
+      "change": "field_added",
+      "after": {
+        "type": "string",
+        "required": false
+      }
+    }
+  ],
+  "acceptance": "not_decided"
+}
